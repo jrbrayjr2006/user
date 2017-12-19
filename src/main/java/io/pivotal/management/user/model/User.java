@@ -1,0 +1,82 @@
+package io.pivotal.management.user.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
+public class User {
+
+    @Id
+    private String id;
+    private String firstname;
+    private String lastname;
+    private String username;
+    private String password;
+
+    public User() {
+    }
+
+    public User(String firstname, String lastname, String username) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
+        return getUsername() != null ? getUsername().equals(user.getUsername()) : user.getUsername() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
+        return result;
+    }
+}
