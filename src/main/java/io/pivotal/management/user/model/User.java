@@ -12,14 +12,17 @@ public class User {
     private String lastname;
     private String username;
     private String password;
+    private String salt;
 
     public User() {
     }
 
-    public User(String firstname, String lastname, String username) {
+    public User(String firstname, String lastname, String username, String password, String salt) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
+        this.password = password;
+        this.salt = salt;
     }
 
     public String getId() {
@@ -60,6 +63,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     @Override
