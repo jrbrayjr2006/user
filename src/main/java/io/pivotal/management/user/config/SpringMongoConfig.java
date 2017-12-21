@@ -1,4 +1,4 @@
-package io.pivotal.management.user.model;
+package io.pivotal.management.user.config;
 
 import com.mongodb.MongoClient;
 import org.springframework.beans.factory.annotation.Value;

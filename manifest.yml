@@ -1,0 +1,7 @@
+---
+applications:
+- name: jbray-user
+  memory: 1024M
+  instances: 1
+  path: build/libs/user-0.0.1-SNAPSHOT.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack

@@ -19,7 +19,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'io.pivotal.management'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 9
+sourceCompatibility = 8
 
 repositories {
 	mavenCentral()

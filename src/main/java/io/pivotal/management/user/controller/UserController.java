@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -34,7 +35,7 @@ public class UserController {
     public User getUser(@PathVariable String id) {
         User user = new User();
         user.setId(id);
-        //TODO add logic to get user
+        user = repository.findById(id).get();
         return user;
     }
 
@@ -46,13 +47,13 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+    @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
     public User updateUser(Long id, User user) {
         //TODO add logic to update user
         return user;
     }
 
-    @RequestMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
     public void deleteUser(Long id) {
         //TODO add logic to delete user
     }
