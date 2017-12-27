@@ -18,3 +18,7 @@ Deploying this app to PCF is straight forward.  Make sure to setup a MongoDB dat
 ```
 cf push -b java_buildpack user-0.0.1-SNAPSHOT.jar
 ```
+or if the manifest.yml file is configured with enough detail, use 
+```aidl
+cf push
+```
