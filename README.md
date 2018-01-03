@@ -8,7 +8,15 @@ This application uses MongoDB for data persistence
 gradle build
 gradle bootRun
 ```
-## Deployment to Pivotal Cloud Foundry
+
+## Operations
+The methods are exposed via RESTful operations which use request path parameters.
+
+For example: 
+`https://localhost:8080/user/123` 
+will return a user object with the id of `123` if that user exists in the data repository.
+
+## Deployment to Pivotal Cloud Foundry (PCF)
 
 Deploying this app to PCF is straight forward.  Make sure to setup a MongoDB database service that this application can use for data persistence.  As of the writng of this document, the mlab cloud service is available on Pivotal Cloud Foundry for use as a MongoDB database.
 1.  Build the application using `gradle build`
@@ -21,4 +29,8 @@ cf push -b java_buildpack user-0.0.1-SNAPSHOT.jar
 or if the manifest.yml file is configured with enough detail, use 
 ```aidl
 cf push
+```
+After the application has been uploaded, deployed, and started on PCF, logout of the CLI.
+```aidl
+cf logout
 ```

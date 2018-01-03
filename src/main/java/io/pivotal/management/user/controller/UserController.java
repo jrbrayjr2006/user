@@ -3,6 +3,7 @@ package io.pivotal.management.user.controller;
 import io.pivotal.management.user.model.User;
 import io.pivotal.management.user.repository.UserRepository;
 import io.pivotal.management.user.service.SecurityService;
+import io.pivotal.management.user.service.UserDataSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private UserDataSevice userDataSevice;
+
     @CrossOrigin
     @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public Map<String,String> serviceUp() {
@@ -26,6 +30,11 @@ public class UserController {
         return result;
     }
 
+    @CrossOrigin
+    @RequestMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public long getCount() {
+        return this.repository.count();
+    }
 
     @CrossOrigin
     @RequestMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
@@ -46,10 +55,14 @@ public class UserController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
-    public User updateUser(Long id, User user) {
-        //TODO add logic to update user
-        this.repository.save(user);
+    @RequestMapping(value = "/user/{id}/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+    public User updateUser(@PathVariable String id, @PathVariable String firstname, @PathVariable String lastname, @PathVariable String username) {
+        User user = this.getUser(id);
+        user.setId(id);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setUsername(username);
+        user = this.repository.save(user);
         return user;
     }
 
