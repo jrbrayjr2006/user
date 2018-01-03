@@ -30,4 +30,14 @@ public class UserDataSevice {
         user = userRepository.save(user);
         return user;
     }
+
+    public User updateUser(String id, String firstname, String lastname, String username) {
+        User user = this.retrieveUser(id);
+        user.setId(id);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setUsername(username);
+        user = this.userRepository.save(user);
+        return user;
+    }
 }

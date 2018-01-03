@@ -57,12 +57,7 @@ public class UserController {
     @CrossOrigin
     @RequestMapping(value = "/user/{id}/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
     public User updateUser(@PathVariable String id, @PathVariable String firstname, @PathVariable String lastname, @PathVariable String username) {
-        User user = this.getUser(id);
-        user.setId(id);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setUsername(username);
-        user = this.repository.save(user);
+        User user = this.userDataSevice.updateUser(id,firstname,lastname,username);
         return user;
     }
 
