@@ -13,14 +13,18 @@ import java.util.*;
 @RestController
 public class UserController {
 
-    @Autowired
     private UserRepository repository;
 
-    @Autowired
     private SecurityService securityService;
 
-    @Autowired
     private UserDataSevice userDataSevice;
+
+
+    public UserController(UserRepository repository, SecurityService securityService, UserDataSevice userDataSevice) {
+        this.repository = repository;
+        this.securityService = securityService;
+        this.userDataSevice = userDataSevice;
+    }
 
     @CrossOrigin
     @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
@@ -41,7 +45,10 @@ public class UserController {
     public User getUser(@PathVariable String id) {
         User user = new User();
         user.setId(id);
-        user = this.repository.findById(id).get();
+        Optional<User> userOpt = this.repository.findById(id);
+        if(userOpt.isPresent()) {
+            user = userOpt.get();
+        }
         return user;
     }
 
