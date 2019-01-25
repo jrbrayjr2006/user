@@ -34,6 +34,12 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.security:spring-security-web')
+
+	// Junit 5
+	testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.1')
+	testImplementation('org.junit.jupiter:junit-jupiter-params:5.3.1')
+	testImplementation('org.mockito:mockito-junit-jupiter:2.23.0')
+	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.3.1')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
 }
@@ -41,6 +47,8 @@ dependencies {
 idea {
 	module {
 		testSourceDirs += file('src/test/java')
+		testSourceDirs += file('src/integrationTest/java')
 		testResourceDirs += file('src/test/resources')
+		testResourceDirs += file('src/integrationTest/resources')
 	}
 }
