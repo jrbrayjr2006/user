@@ -24,6 +24,7 @@ sourceCompatibility = 8
 
 repositories {
 	mavenCentral()
+	jcenter()
 	maven { url "https://repo.spring.io/snapshot" }
 	maven { url "https://repo.spring.io/milestone" }
 }
@@ -34,6 +35,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.security:spring-security-web')
+	compile('io.springfox:springfox-swagger2:2.9.2')
+	compile('io.springfox:springfox-swagger-ui:2.9.2')
 
 	// Junit 5
 	testImplementation('org.junit.jupiter:junit-jupiter-api:5.3.1')

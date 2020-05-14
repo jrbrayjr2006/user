@@ -40,3 +40,13 @@ cf logout
 ## Updates
 
 The unit testing framework has been updated to JUnit 5
+
+### REST API Documentation
+
+This application uses Swagger for API documentation.
+
+
+## References
+
+- [REST Resource Naming Guide](https://restfulapi.net/resource-naming/)
+- [Springfox Reference Documentation](https://springfox.github.io/springfox/docs/current/)
