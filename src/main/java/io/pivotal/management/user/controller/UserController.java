@@ -4,17 +4,17 @@ import io.pivotal.management.user.model.User;
 import io.pivotal.management.user.repository.UserRepository;
 import io.pivotal.management.user.service.SecurityService;
 import io.pivotal.management.user.service.UserDataSevice;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+//import io.swagger.annotations.Api;
+//import io.swagger.annotations.ApiOperation;
+//import io.swagger.annotations.ApiResponse;
+//import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Api( value = "RestoreAPI")
+//@Api( value = "RestoreAPI")
 @RestController
 public class UserController {
 
@@ -31,12 +31,12 @@ public class UserController {
         this.userDataSevice = userDataSevice;
     }
 
-    @ApiOperation(
-            value = "Service heartbeat",
-            notes = "This operation verifies that the service is active"
-    )
-    @ApiResponses( value = {@ApiResponse(code = 200, message = "OK, service available")} )
-    @CrossOrigin
+//    @ApiOperation(
+//            value = "Service heartbeat",
+//            notes = "This operation verifies that the service is active"
+//    )
+//    @ApiResponses( value = {@ApiResponse(code = 200, message = "OK, service available")} )
+//    @CrossOrigin
     @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public Map<String,String> serviceUp() {
         Map<String,String> result = new HashMap<>();
@@ -44,23 +44,23 @@ public class UserController {
         return result;
     }
 
-    @ApiOperation(
-            value = "Count users",
-            notes = "This operation returns the number of users currently in the database"
-    )
-    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
-    @CrossOrigin
+//    @ApiOperation(
+//            value = "Count users",
+//            notes = "This operation returns the number of users currently in the database"
+//    )
+//    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
+//    @CrossOrigin
     @RequestMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public long getCount() {
         return this.repository.count();
     }
 
-    @ApiOperation(
-            value = "Get user by ID",
-            notes = "This operation gets a specified user with a matching ID"
-    )
-    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
-    @CrossOrigin
+//    @ApiOperation(
+//            value = "Get user by ID",
+//            notes = "This operation gets a specified user with a matching ID"
+//    )
+//    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
+//    @CrossOrigin
     @RequestMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public User getUser(@PathVariable String id) {
         User user = new User();
@@ -72,12 +72,12 @@ public class UserController {
         return user;
     }
 
-    @ApiOperation(
-            value = "Create user",
-            notes = "This operation creates a new user record"
-    )
-    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
-    @CrossOrigin
+//    @ApiOperation(
+//            value = "Create user",
+//            notes = "This operation creates a new user record"
+//    )
+//    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
+//    @CrossOrigin
     @RequestMapping(value = "/user/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public User createUser(@PathVariable String firstname, @PathVariable String lastname, @PathVariable String username) {
         //Map<String,String> result = new HashMap<>();
@@ -86,25 +86,25 @@ public class UserController {
         return user;
     }
 
-    @ApiOperation(
-            value = "Update user",
-            notes = "This operation updates an existing user's data"
-    )
-    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
-    @CrossOrigin
+//    @ApiOperation(
+//            value = "Update user",
+//            notes = "This operation updates an existing user's data"
+//    )
+//    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
+//    @CrossOrigin
     @RequestMapping(value = "/user/{id}/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
     public User updateUser(@PathVariable String id, @PathVariable String firstname, @PathVariable String lastname, @PathVariable String username) {
         User user = this.userDataSevice.updateUser(id,firstname,lastname,username);
         return user;
     }
 
-    @ApiOperation(
-            value = "Delete specified user",
-            notes = "This operation deletes a user with the matching submitted id"
-    )
-    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
-    @CrossOrigin
-    @RequestMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
+//    @ApiOperation(
+//            value = "Delete specified user",
+//            notes = "This operation deletes a user with the matching submitted id"
+//    )
+//    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
+//    @CrossOrigin
+    @DeleteMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String,String> deleteUser(@PathVariable String id) {
         Map<String,String> result = new HashMap<>();
         if(this.repository.existsById(id)) {
@@ -116,12 +116,12 @@ public class UserController {
         return result;
     }
 
-    @ApiOperation(
-            value = "Get all users",
-            notes = "Return all user data that is currently in the database"
-    )
-    @ApiResponses( value = {@ApiResponse(code = 200, message = "OK, users retrieved")} )
-    @CrossOrigin
+//    @ApiOperation(
+//            value = "Get all users",
+//            notes = "Return all user data that is currently in the database"
+//    )
+//    @ApiResponses( value = {@ApiResponse(code = 200, message = "OK, users retrieved")} )
+//    @CrossOrigin
     @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();

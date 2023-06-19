@@ -25,10 +25,6 @@ import com.mongodb.client.MongoClients;
 public class SpringMongoConfig extends AbstractMongoClientConfiguration {
 
 
-    private String profileActive;
-
-
-    private String proAppName;
 
     @Value("${spring.data.mongodb.host}")
     private String mongoHost;
