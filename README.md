@@ -45,6 +45,11 @@ The unit testing framework has been updated to JUnit 5
 
 This application uses Swagger for API documentation.
 
+## Update
+This code repository was created in 2017 and had a substantial update in 2020.
+
+This repository was updated again in 2023 to use Java 17 and Spring Boot 3.1 (Spring 6.1).
+
 
 ## References
 
