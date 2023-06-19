@@ -37,7 +37,7 @@ public class SecurityService {
     }
 
     protected TextEncryptor getEncryptor(String password, String storedSalt) {
-        TextEncryptor encryptor = Encryptors.queryableText(password, storedSalt);
+        TextEncryptor encryptor = Encryptors.text(password, storedSalt);
         return encryptor;
     }
 }
