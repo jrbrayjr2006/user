@@ -1,8 +1,14 @@
 package io.pivotal.management.user.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document
 public class User {
 
@@ -14,8 +20,6 @@ public class User {
     private String password;
     private String salt;
 
-    public User() {
-    }
 
     public User(String firstname, String lastname, String username, String password, String salt) {
         this.firstname = firstname;
