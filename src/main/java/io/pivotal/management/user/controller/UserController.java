@@ -12,21 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Media;
 import java.util.*;
 
 //@Api( value = "RestoreAPI")
 @RestController
 public class UserController {
 
-    private UserRepository repository;
-
     private SecurityService securityService;
 
     private UserDataSevice userDataSevice;
 
 
-    public UserController(UserRepository repository, SecurityService securityService, UserDataSevice userDataSevice) {
-        this.repository = repository;
+    public UserController(SecurityService securityService, UserDataSevice userDataSevice) {
         this.securityService = securityService;
         this.userDataSevice = userDataSevice;
     }
@@ -37,7 +35,7 @@ public class UserController {
 //    )
 //    @ApiResponses( value = {@ApiResponse(code = 200, message = "OK, service available")} )
 //    @CrossOrigin
-    @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String,String> serviceUp() {
         Map<String,String> result = new HashMap<>();
         result.put("data","success");
@@ -50,9 +48,9 @@ public class UserController {
 //    )
 //    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
 //    @CrossOrigin
-    @RequestMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @GetMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
     public long getCount() {
-        return this.repository.count();
+        return this.userDataSevice.getUserCount();
     }
 
 //    @ApiOperation(
@@ -61,14 +59,11 @@ public class UserController {
 //    )
 //    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
 //    @CrossOrigin
-    @RequestMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable String id) {
         User user = new User();
         user.setId(id);
-        Optional<User> userOpt = this.repository.findById(id);
-        if(userOpt.isPresent()) {
-            user = userOpt.get();
-        }
+        user = this.userDataSevice.retrieveUser(id);
         return user;
     }
 
@@ -78,11 +73,11 @@ public class UserController {
 //    )
 //    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
 //    @CrossOrigin
-    @RequestMapping(value = "/user/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @PostMapping(value = "/user/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User createUser(@PathVariable String firstname, @PathVariable String lastname, @PathVariable String username) {
         //Map<String,String> result = new HashMap<>();
         User user = new User(firstname,lastname,username, securityService.securePassword(SecurityService.DEFAULT_PASSWORD), securityService.getSalt());
-        User result = this.repository.insert(user);
+        User result = this.userDataSevice.createUser(user);
         return user;
     }
 
@@ -92,7 +87,7 @@ public class UserController {
 //    )
 //    @ApiResponses( value = {@ApiResponse(code = 200, message = "")} )
 //    @CrossOrigin
-    @RequestMapping(value = "/user/{id}/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+    @PutMapping(value = "/user/{id}/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User updateUser(@PathVariable String id, @PathVariable String firstname, @PathVariable String lastname, @PathVariable String username) {
         User user = this.userDataSevice.updateUser(id,firstname,lastname,username);
         return user;
@@ -107,8 +102,7 @@ public class UserController {
     @DeleteMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String,String> deleteUser(@PathVariable String id) {
         Map<String,String> result = new HashMap<>();
-        if(this.repository.existsById(id)) {
-            this.repository.deleteById(id);
+        if(this.userDataSevice.deleteUserById(id)) {
             result.put("data","success");
         } else {
             result.put("data","failed");
@@ -122,10 +116,10 @@ public class UserController {
 //    )
 //    @ApiResponses( value = {@ApiResponse(code = 200, message = "OK, users retrieved")} )
 //    @CrossOrigin
-    @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
-        result = repository.findAll();
+        result = userDataSevice.retrieveAllUsers();
         return result;
     }
 }

@@ -2,7 +2,6 @@ package io.pivotal.management.user.controller;
 
 
 import io.pivotal.management.user.model.User;
-import io.pivotal.management.user.repository.UserRepository;
 import io.pivotal.management.user.service.SecurityService;
 import io.pivotal.management.user.service.UserDataSevice;
 import org.mockito.Mock;
@@ -36,19 +35,16 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private UserRepository repository;
+    private SecurityService mockSecurityService;
 
     @Mock
-    private SecurityService securityService;
-
-    @Mock
-    private UserDataSevice userDataSevice;
+    private UserDataSevice mockUserDataSevice;
 
     static String ID = "anyId";
 
     @BeforeEach
     public void setUp() {
-        controller = new UserController(repository, securityService, userDataSevice);
+        controller = new UserController(mockSecurityService, mockUserDataSevice);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -77,7 +73,7 @@ public class UserControllerTest {
         String firstname = "anyfirstname";
         String lastname = "anylastname";
         String username = "anyusername";
-        when(userDataSevice.updateUser(ID,firstname,lastname,username)).thenReturn(new User());
+        when(mockUserDataSevice.updateUser(ID,firstname,lastname,username)).thenReturn(new User());
         this.mockMvc.perform(put("/user/"+ID+"/"+firstname+"/"+lastname+"/"+username)).andDo(print()).andExpect(status().isOk());
     }
 
@@ -93,8 +89,7 @@ public class UserControllerTest {
         // Given
         String expected = "success";
         // When
-        when(repository.existsById(ID)).thenReturn(true);
-        doNothing().when(repository).deleteById(ID);
+        when(mockUserDataSevice.deleteUserById(ID)).thenReturn(true);
         String actual =  controller.deleteUser(ID).get("data");
         // Then
         assertEquals(expected, actual);
@@ -106,7 +101,8 @@ public class UserControllerTest {
         // Given
         String expected = "failed";
         // When
-        when(repository.existsById(ID)).thenReturn(false);
+        when(mockUserDataSevice.deleteUserById(ID)).thenReturn(false);
+
         String actual =  controller.deleteUser(ID).get("data");
         // Then
         assertEquals(expected, actual);

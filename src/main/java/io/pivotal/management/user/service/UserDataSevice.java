@@ -2,8 +2,12 @@ package io.pivotal.management.user.service;
 
 import io.pivotal.management.user.model.User;
 import io.pivotal.management.user.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.*;
 
 /**
  * <b>Description:</b>
@@ -13,22 +17,43 @@ import org.springframework.stereotype.Service;
  * @author jbray
  * @version 0.1.0
  */
+
+@Slf4j
 @Service
 public class UserDataSevice {
 
-    @Autowired
     private UserRepository userRepository;
+
+    public UserDataSevice(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
 
     public User retrieveUser(String id) {
-        User user = userRepository.findById(id).get();
+        log.info("retrieving all users...");
+        User user = null;
+        Optional<User> userOpt = userRepository.findById(id);
+        if(userOpt.isPresent()) {
+            user = userOpt.get();
+        }
         return user;
+    }
+
+    public List<User> retrieveAllUsers() {
+        List<User> users = new ArrayList<>();
+        users = userRepository.findAll();
+        return users;
     }
 
 
     public User saveUser(User user) {
         user = userRepository.save(user);
         return user;
+    }
+
+    public User createUser(User user) {
+        User createdUser = this.userRepository.insert(user);
+        return createdUser;
     }
 
     public User updateUser(String id, String firstname, String lastname, String username) {
@@ -39,5 +64,20 @@ public class UserDataSevice {
         user.setUsername(username);
         user = this.userRepository.save(user);
         return user;
+    }
+
+    public Boolean deleteUserById(String id) {
+        log.info("deleting user " + id);
+        if(this.userRepository.existsById(id)) {
+            this.userRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public long getUserCount() {
+        long userCount = userRepository.count();
+        return userCount;
     }
 }
