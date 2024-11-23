@@ -52,3 +52,6 @@ This application uses Swagger for API documentation.
 
 - [REST Resource Naming Guide](https://restfulapi.net/resource-naming/)
 - [Springfox Reference Documentation](https://springfox.github.io/springfox/docs/current/)
+- [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa)
+- [Spring Boot With H2 Database](https://www.baeldung.com/spring-boot-h2-database)
+- [Quick Guide on Loading Initial Data with Spring Boot](https://www.baeldung.com/spring-boot-data-sql-and-schema-sql)
