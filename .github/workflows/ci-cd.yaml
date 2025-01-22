@@ -1,4 +1,4 @@
-name: Simple Workflow
+name: CI/CD
 on:
   push:
     branches:
