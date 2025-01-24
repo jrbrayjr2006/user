@@ -47,6 +47,14 @@ This repository was updated again in 2023 to use Java 17 and Spring Boot 3.1 (Sp
 
 This application uses Swagger for API documentation.
 
+## Local Configuration
+
+The application can be run locally by using the following command `gradlew bootRun`.
+
+If you are running this application on a Windows/WSL (Windows Subsystem for Linux) environment, you may need to make the following configuration changes in order for the application to connect to the proper port for MongoDB.
+
+The [Go WSL Host](https://github.com/shayne/go-wsl2-host) utility can be used to allow a connection to the port.
+
 
 ## References
 
@@ -56,3 +64,4 @@ This application uses Swagger for API documentation.
 - [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa)
 - [Spring Boot With H2 Database](https://www.baeldung.com/spring-boot-h2-database)
 - [Quick Guide on Loading Initial Data with Spring Boot](https://www.baeldung.com/spring-boot-data-sql-and-schema-sql)
+- [mongodb_6_on_wsl2_ubuntu_2204.md](https://gist.github.com/leobeeson/8ac8c8ddbb0a704af26e4bd153658bde)
