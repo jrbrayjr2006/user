@@ -8,6 +8,7 @@ import io.pivotal.management.user.service.UserDataSevice;
 //import io.swagger.annotations.ApiOperation;
 //import io.swagger.annotations.ApiResponse;
 //import io.swagger.annotations.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.print.attribute.standard.Media;
 import java.util.*;
 
+
 //@Api( value = "RestoreAPI")
+@Slf4j
 @RestController
 public class UserController {
 
@@ -76,6 +79,7 @@ public class UserController {
     @PostMapping(value = "/user/{firstname}/{lastname}/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User createUser(@PathVariable String firstname, @PathVariable String lastname, @PathVariable String username) {
         //Map<String,String> result = new HashMap<>();
+        log.debug("creating a new user in the system");
         User user = new User(firstname,lastname,username, securityService.securePassword(SecurityService.DEFAULT_PASSWORD), securityService.getSalt());
         User result = this.userDataSevice.createUser(user);
         return user;
@@ -101,6 +105,7 @@ public class UserController {
 //    @CrossOrigin
     @DeleteMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String,String> deleteUser(@PathVariable String id) {
+        log.info("removing a user from the system");
         Map<String,String> result = new HashMap<>();
         if(this.userDataSevice.deleteUserById(id)) {
             result.put("data","success");

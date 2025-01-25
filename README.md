@@ -49,7 +49,7 @@ This application uses Swagger for API documentation.
 
 ## Local Configuration
 
-The application can be run locally by using the following command `gradlew bootRun`.
+The application can be run locally by using the following command ` ./gradlew bootRun --args='--spring.profiles.active=local'`.
 
 If you are running this application on a Windows/WSL (Windows Subsystem for Linux) environment, you may need to make the following configuration changes in order for the application to connect to the proper port for MongoDB.
 
