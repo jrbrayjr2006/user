@@ -1,5 +1,5 @@
 # user Spring Boot Application
-This is a simple Spring Boot application that exposes some CRUD methods for user data.  The data is stored in a MongoDB database.
+This is a simple Spring Boot application that exposes some CRUD methods for user data.  The data is stored in a MongoDB database.  This application is for education and demo purposes only.  It is not meant to be deployed into a production environment as is.
 
 ## Dependencies
 This application uses MongoDB for data persistence
@@ -43,9 +43,13 @@ This code repository was created in 2017 and had a substantial update in 2020.  
 
 This repository was updated again in 2023 to use Java 17 and Spring Boot 3.1 (Spring 6.1).
 
+This repository was updated again in 2025 to use the current version of Spring Boot.  Containerization features were also added to this repository.
+
 ### REST API Documentation
 
-This application uses Swagger for API documentation.
+## Containerization
+
+
 
 ## Local Configuration
 
