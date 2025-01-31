@@ -1,10 +1,14 @@
 package io.pivotal.management.user.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.pivotal.management.user.model.User;
 import io.pivotal.management.user.service.SecurityService;
 import io.pivotal.management.user.service.UserDataSevice;
 import org.mockito.Mock;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -64,7 +68,20 @@ public class UserControllerTest {
 
     @Test
     public void createUserTest() throws Exception {
-        this.mockMvc.perform(post("/user/john/doe/johndoe")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("johndoe")));
+        // Given
+        User testUser = User.builder().firstname("John").lastname("Doe").username("johndoe").build();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(testUser );
+
+        // When
+        this.mockMvc.perform(post("/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("johndoe")));
     }
 
     @DisplayName("Given user information, when user information is sent for updating, the system returns ok")

@@ -24,13 +24,16 @@ public class UserDataSevice {
 
     private UserRepository userRepository;
 
-    public UserDataSevice(UserRepository userRepository) {
+    private SecurityService securityService;
+
+    public UserDataSevice(UserRepository userRepository, SecurityService securityService) {
         this.userRepository = userRepository;
+        this.securityService = securityService;
     }
 
 
     public User retrieveUser(String id) {
-        log.info("retrieving all users...");
+        log.info("retrieving one user...");
         User user = null;
         Optional<User> userOpt = userRepository.findById(id);
         if(userOpt.isPresent()) {
@@ -40,6 +43,7 @@ public class UserDataSevice {
     }
 
     public List<User> retrieveAllUsers() {
+        log.info("retrieving all users...");
         List<User> users = new ArrayList<>();
         users = userRepository.findAll();
         return users;
@@ -52,6 +56,8 @@ public class UserDataSevice {
     }
 
     public User createUser(User user) {
+        user.setPassword(securityService.securePassword(SecurityService.DEFAULT_PASSWORD));
+        user.setSalt(securityService.getSalt());
         User createdUser = this.userRepository.insert(user);
         return createdUser;
     }

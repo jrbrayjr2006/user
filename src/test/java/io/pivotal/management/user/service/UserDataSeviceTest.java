@@ -17,12 +17,15 @@ class UserDataSeviceTest {
 
     UserRepository mockUserRepository;
 
+    SecurityService mockSecurityService;
+
     UserDataSevice userDataSevice;
 
     @BeforeEach
     void setUp() {
         mockUserRepository = mock(UserRepository.class);
-        userDataSevice = new UserDataSevice(mockUserRepository);
+        mockSecurityService = mock(SecurityService.class);
+        userDataSevice = new UserDataSevice(mockUserRepository, mockSecurityService);
     }
 
 
